@@ -1,19 +1,43 @@
+<!DOCTYPE html>
 <html>
-<head>
-<script type="text/javascript" src="jquery-3.1.1.js"></script>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>交响乐指挥</title>
+    <link href="./assets/animate.min.css" type="text/css" rel="Stylesheet" />
+    <link href="./assets/play.css" type="text/css" rel="Stylesheet" />
+
+</head>
+<body>
+<div class="container">
+
+<div class="main">
+    <div class="pic">
+        <img src="assets/images/pic.jpg" width="100%">
+    </div>
+    <div class="row">
+        <div class="icon">
+            <div class="m-icon animated fadeInUp infinite" >
+                <img src="assets/images/m-icon1.png">
+            </div>
+            <div class="m-icon2 animated fadeInUp infinite" >
+                <img src="assets/images/m-icon2.png">
+            </div>
+            <img id="guitar" class="infra" src="assets/images/guitar.png">
+        </div>
+        <div class="icon">
+            <img id="drum" class="infra" src="assets/images/drum.png">
+        </div>
+        <div class="icon">
+            <img id="piano" class="infra" src="assets/images/piano.png">
+        </div>
+    </div>
+</div>
+
+
+</div>
+<script src="./assets/js/jquery-1.2.6.js"></script>
 <script type="text/javascript" src="howler.js"></script>
 <script type="text/javascript" src="myo.js"></script>
-</head>
-
-<body>
-<button id="piano">Piano</button>
-<button id="drum">Drum</button>
-<button id="guitar">Guitar</button>
-<button id="start">Start</button>
-<button id="fade">Fade</button>
-<button id="sup">SpeedUp</button>
-<button id="sdown">SpeedDown</button>
-</body>
 
 <script type="text/javascript">
 
@@ -43,83 +67,21 @@ var isPlayingDrum = false;
 var isPlayingGuitar = false;
 
 var current = "P";
-
-$("#piano").click(function(){
-	current = "P";
-})
-
-$("#drum").click(function(){
-	current = "D";
-})
-
-$("#guitar").click(function(){
-	current = "G";
-})
-
-
-
-$("#start").click(function(){
-    if(current == "D" && !isPlayingDrum){
-       drum.seek(0);
-      //drum.volume(1,drumId);
-       drum.fade(0, 1, 5000, drumId);
-       isPlayingDrum = true;
-	}else if(current == "G" && !isPlayingGuitar){
-        guitar.seek(0);
-        //guitar.volume(1,guitarId);
-        guitar.fade(0, 1, 5000, guitarId);
-        isPlayingGuitar = true;
-	}
-})
-
-$("#fade").click(function(){
-    if(current == "D" && isPlayingDrum){
-      drum.fade(1, 0, 5000, drumId);
-      isPlayingDrum = false;
-	}else if(current == "G" && isPlayingGuitar){
-	    guitar.fade(1, 0, 5000, guitarId);
-	    isPlayingGuitar = false;
-	}
-})
-
-
-$("#sup").click(function(){
-   piano.rate(1.2, pianoId);
-   piano.fade(0, 1, 5000, pianoId);
-   if(!isPlayingDrum){
-   	 drum.rate(1.2,drumId);
-     drum.fade(0, 1, 5000, drumId);
-     isPlayingDrum = true;
-   }
-   if(!isPlayingGuitar){
-   	 guitar.rate(1.2,guitarId);
-     guitar.fade(0, 1, 5000, guitarId);
-     isPlayingGuitar = true;
-   }
-   
-})
-
-$("#sdown").click(function(){
-   piano.fade(1, 0, 5000, pianoId);
-   if(isPlayingDrum){
-    drum.fade(1, 0, 5000, drumId);
-    isPlayingDrum = false;
-   }
-   if(isPlayingGuitar){
-   	 guitar.fade(1, 0, 5000, guitarId);
-     isPlayingGuitar = false;
-   }
-   
-})
+$("#piano").addClass("highlight");
 
 var prev={"P":"G","D":"P","G":"D"};
 var next={"P":"D","D":"G","G":"P"};
+var map={"P":"#piano","D":"#drum","G":"#guitar"};
 
 function updateAudio(gesture){
   if(gesture == 1){
+    $(map[current]).removeClass("highlight");
     current = prev[current];
+    $(map[current]).addClass("highlight");
   }else if(gesture == 2){
+    $(map[current]).removeClass("highlight");
     current = next[current];
+    $(map[current]).addClass("highlight");
   }else if(gesture == 3){
     if(current == "D" && !isPlayingDrum){
        drum.seek(0);
@@ -141,8 +103,6 @@ function updateAudio(gesture){
           isPlayingGuitar = false;
       }
   }else if(gesture == 5){
-
-  }else if(gesture == 6){
 
   }
 }
@@ -181,5 +141,5 @@ updateAudio(gesture);
 })
 
 </script>
-
-</html> 
+</body>
+</html>
