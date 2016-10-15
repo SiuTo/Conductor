@@ -324,205 +324,37 @@ html {
   box-sizing: inherit; }
 
 body {
-  background-color: white;
-  color: black; }
+  background-color: black;
+  color: white; }
 
-.container::after {
-  clear: both;
-  content: "";
-  display: table; }
+.container {
+  max-width: 1280px;
+  margin: 0 auto; }
+  .container::after {
+    clear: both;
+    content: "";
+    display: table; }
 
-.row::after {
-  clear: both;
-  content: "";
-  display: table; }
-
-.icon {
-  width: 30%;
+.left {
   float: left;
-  position: relative; }
-  .icon .d-icon {
-    position: absolute;
-    left: 130px;
-    top: 50px;
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s; }
-    .icon .d-icon img {
-      width: 30px; }
-  .icon .d-icon2 {
-    position: absolute;
-    left: 172px;
-    top: 72px;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s; }
-    .icon .d-icon2 img {
-      width: 20px; }
-  .icon .m-icon {
-    position: absolute;
-    left: 130px;
-    top: 50px;
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s; }
-    .icon .m-icon img {
-      width: 30px; }
-  .icon .m-icon2 {
-    position: absolute;
-    left: 150px;
-    top: 70px;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s; }
-    .icon .m-icon2 img {
-      width: 20px; }
-  .icon .p-icon {
-    position: absolute;
-    left: 120px;
-    top: 47px;
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s; }
-    .icon .p-icon img {
-      width: 30px; }
-  .icon .p-icon2 {
-    position: absolute;
-    left: 158px;
-    top: 64px;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s; }
-    .icon .p-icon2 img {
-      width: 20px; }
-  .icon .infra {
-    margin-top: 20px;
-    margin-left: 100px;
-    width: 180px; }
-  .icon .infra:hover {
-    border: solid 6px burlywood;
-    border-radius: 50%; }
+  width: 256px; }
 
-.highlight {
-  border: solid 6px burlywood;
-  border-radius: 50%; }
-
-.main {
+.right {
   float: left;
   position: relative;
-  width: 100%; }
+  width: 1024px;
+  height: 700px;
+  background-image: url("images/main.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%; }
 
-.music {
-  margin-top: -50px;
-  margin-bottom: 55px; }
-
-.hide {
-  display: none; }
-
-.music-line-container {
-  position: relative;
-  top: 65px;
-  z-index: 3; }
-
-.line-borders {
-  width: 100%;
-  height: 20px;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
-  margin-bottom: 18px; }
-
-.line-border {
-  width: 100%;
-  height: 0px;
-  border-top: 3px solid #000; }
-
-.notes-container {
-  position: relative;
-  z-index: 1; }
-
-.circle {
-  width: 20px;
-  height: 20px;
-  background: #000;
-  border-radius: 50px 30px 45px 30px;
-  float: left; }
-
-.stick {
-  width: 1px;
-  height: 60px;
-  border-left: 3px solid #000;
-  float: left;
-  margin-top: -50px;
-  margin-left: -3px; }
-
-.tail-container {
-  float: left;
-  position: relative;
-  top: -50px;
-  left: -1px; }
-
-.tail {
-  width: 15px;
-  height: 25px;
-  background: #000;
-  border-radius: 0 80px 70px 0;
-  z-index: 1;
-  position: absolute; }
-
-.tail-mask {
-  width: 12px;
-  height: 23px;
-  background: #fff;
-  border-radius: 0 100px 40px 0;
-  z-index: 2;
+.violin {
   position: absolute;
-  top: 4px; }
-
-.line {
-  width: 30px;
-  height: 3px;
-  background: #000;
-  position: relative;
-  z-index: 5;
-  top: 8px;
-  left: -5px; }
-
-.do {
-  position: relative;
-  top: 75px;
-  left: 25px; }
-
-.re {
-  position: relative;
-  top: 65px;
-  left: 55px; }
-
-.mi {
-  position: relative;
-  top: 55px;
-  left: 85px; }
-
-.fa {
-  position: relative;
-  top: 45px;
-  left: 115px; }
-
-.sol {
-  position: relative;
-  top: 35px;
-  left: 145px; }
-
-.la {
-  position: relative;
-  top: 23px;
-  left: 175px; }
-
-.si {
-  position: relative;
-  top: 10px;
-  left: 205px; }
-
-.do2 {
-  position: relative;
-  top: 0px;
-  left: 235px; }
+  top: 148px;
+  left: 0; }
+  .violin a {
+    display: block;
+    width: 505px;
+    height: 450px; }
+  .violin a:hover {
+    background-image: url("images/violin.png"); }
