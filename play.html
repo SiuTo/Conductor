@@ -163,27 +163,21 @@ function updateAudio(gesture){
 Myo.connect('com.myojs.poseDetector');
 //Myo.setLockingPolicy("none");
 Myo.on('pose', function(pose){
-  $('img.' + pose).attr('src', 'img/' + pose + '_active.png');
-  $('.mainPose img').attr('src', 'img/' + pose + '_active.png');
  console.log(pose);
   var gesture;
 if (pose == "wave_out")
 {
   gesture = 1;
-}
-if (pose == "wave_in")
+}else if (pose == "wave_in")
 {
   gesture = 2;
-}
-if (pose == "fingers_spread")
+}else if (pose == "fingers_spread")
 {
   gesture = 5;
-}
-if (pose == "double_tap")
+}else if (pose == "double_tap")
 {
   gesture = 3;
-}
-if (pose == "fist")
+}else if (pose == "fist")
 {
   gesture = 4;
 }

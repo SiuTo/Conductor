@@ -18,4 +18,13 @@
 </div>
 
 </body>
+<script type="text/javascript" src="./assets/js/myo.js"></script>
+<script type="text/javascript">
+ Myo.connect('com.myojs.poseDetector');
+ Myo.on('pose', function(pose){
+ console.log(pose);
+ if (pose == "double_tap")
+   window.location.href='intro.html';
+})
+</script>
 </html>
