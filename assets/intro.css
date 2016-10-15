@@ -1,0 +1,23 @@
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
+.intro-title {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.row::after {
+  clear: both;
+  content: "";
+  display: table; }
+.gesture{
+  width: 33%;
+  float: left;
+  text-align: center;
+}
+.gesture2{
+  width: 50%;
+  float:left;
+  text-align: center;
+}
