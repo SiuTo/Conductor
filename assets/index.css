@@ -12,19 +12,36 @@ body {
 
 h3 {
   text-align: center;
-  padding-top: 30px; }
+  padding-top: 30px;
+  font-family: "Heiti SC",sans-serif;
+  color: white;
+  font-weight: 700;
+}
+
+h3 img {
+  width: 600px;
+  margin-top: 40px;
+}
 
 .play {
-  width: 200px;
+  width: 163px;
   margin: 0 auto;
-  margin-top: 150px; }
+  margin-top: 200px; }
 
 .btn, .btn:visited {
-  padding: 12px 18px;
-  width: 200px;
+  display: block;
+  padding: 0 22px;
+  width: 163px;
   border: none;
   font-size: 28px;
   background-color: white;
   text-decoration: none;
   color: black;
   border-radius: 13px; }
+
+.btn img {
+  width: 150px;
+}
+.btn:hover {
+  background-color: #eee;
+}
