@@ -1,0 +1,184 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.1.1.js"></script>
+<script type="text/javascript" src="howler.js"></script>
+<script type="text/javascript" src="myo.js"></script>
+</head>
+
+<body>
+<button id="piano">Piano</button>
+<button id="drum">Drum</button>
+<button id="guitar">Guitar</button>
+<button id="start">Start</button>
+<button id="fade">Fade</button>
+<button id="sup">SpeedUp</button>
+<button id="sdown">SpeedDown</button>
+</body>
+
+<script type="text/javascript">
+
+var piano = new Howl({
+  src: ['loop1.wav'],
+  loop: true
+});
+
+var drum = new Howl({
+  src: ['loop2.wav'],
+  loop: true
+});
+
+var guitar = new Howl({
+  src: ['loop3.wav'],
+  loop: true
+});
+
+var pianoId = piano.play();
+var drumId = drum.play();
+var guitarId = guitar.play();
+piano.volume(0.8,pianoId);
+drum.volume(0,drumId);
+guitar.volume(0,guitarId);
+
+var isPlayingDrum = false;
+var isPlayingGuitar = false;
+
+var current = "P";
+
+$("#piano").click(function(){
+	current = "P";
+})
+
+$("#drum").click(function(){
+	current = "D";
+})
+
+$("#guitar").click(function(){
+	current = "G";
+})
+
+
+
+$("#start").click(function(){
+    if(current == "D" && !isPlayingDrum){
+       drum.seek(0);
+      //drum.volume(1,drumId);
+       drum.fade(0, 1, 5000, drumId);
+       isPlayingDrum = true;
+	}else if(current == "G" && !isPlayingGuitar){
+        guitar.seek(0);
+        //guitar.volume(1,guitarId);
+        guitar.fade(0, 1, 5000, guitarId);
+        isPlayingGuitar = true;
+	}
+})
+
+$("#fade").click(function(){
+    if(current == "D" && isPlayingDrum){
+      drum.fade(1, 0, 5000, drumId);
+      isPlayingDrum = false;
+	}else if(current == "G" && isPlayingGuitar){
+	    guitar.fade(1, 0, 5000, guitarId);
+	    isPlayingGuitar = false;
+	}
+})
+
+
+$("#sup").click(function(){
+   piano.rate(1.2, pianoId);
+   piano.fade(0, 1, 5000, pianoId);
+   if(!isPlayingDrum){
+   	 drum.rate(1.2,drumId);
+     drum.fade(0, 1, 5000, drumId);
+     isPlayingDrum = true;
+   }
+   if(!isPlayingGuitar){
+   	 guitar.rate(1.2,guitarId);
+     guitar.fade(0, 1, 5000, guitarId);
+     isPlayingGuitar = true;
+   }
+   
+})
+
+$("#sdown").click(function(){
+   piano.fade(1, 0, 5000, pianoId);
+   if(isPlayingDrum){
+    drum.fade(1, 0, 5000, drumId);
+    isPlayingDrum = false;
+   }
+   if(isPlayingGuitar){
+   	 guitar.fade(1, 0, 5000, guitarId);
+     isPlayingGuitar = false;
+   }
+   
+})
+
+var prev={"P":"G","D":"P","G":"D"};
+var next={"P":"D","D":"G","G":"P"};
+
+function updateAudio(gesture){
+  if(gesture == 1){
+    current = prev[current];
+  }else if(gesture == 2){
+    current = next[current];
+  }else if(gesture == 3){
+    if(current == "D" && !isPlayingDrum){
+       drum.seek(0);
+      //drum.volume(1,drumId);
+       drum.fade(0, 1, 5000, drumId);
+       isPlayingDrum = true;
+    }else if(current == "G" && !isPlayingGuitar){
+        guitar.seek(0);
+        //guitar.volume(1,guitarId);
+        guitar.fade(0, 1, 5000, guitarId);
+        isPlayingGuitar = true;
+    }
+  }else if(gesture == 4){
+      if(current == "D" && isPlayingDrum){
+        drum.fade(1, 0, 5000, drumId);
+        isPlayingDrum = false;
+      }else if(current == "G" && isPlayingGuitar){
+          guitar.fade(1, 0, 5000, guitarId);
+          isPlayingGuitar = false;
+      }
+  }else if(gesture == 5){
+
+  }else if(gesture == 6){
+
+  }
+}
+
+//drum.fade(1, 0, 1000, drumId);
+//guitar.rate(1.5, guitarId);
+Myo.connect('com.myojs.poseDetector');
+//Myo.setLockingPolicy("none");
+Myo.on('pose', function(pose){
+  $('img.' + pose).attr('src', 'img/' + pose + '_active.png');
+  $('.mainPose img').attr('src', 'img/' + pose + '_active.png');
+  console.log(pose);
+  var gesture;
+  if (pose == "wave_out")
+  {
+    gesture = 1;
+  }
+  else if (pose == "wave_in")
+  {
+    gesture = 2;
+  }
+  else if (pose == "fingers_spread")
+  {
+    gesture = 5;
+  }
+  else if (pose == "double_tap")
+  {
+    gesture = 3;
+  }
+  else if (pose == "fist")
+  {
+    gesture = 4;
+  }
+  updateAudio(gesture);
+})
+
+</script>
+
+</html> 
