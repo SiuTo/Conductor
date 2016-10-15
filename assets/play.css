@@ -338,7 +338,7 @@ body {
   display: table; }
 
 .icon {
-  width: 30%;
+  width: 33%;
   float: left;
   position: relative; }
   .icon .d-icon {
@@ -397,7 +397,7 @@ body {
       width: 20px; }
   .icon .infra {
     margin-top: 20px;
-    margin-left: 100px;
+    margin-left: 120px;
     width: 180px; }
   .icon .infra:hover {
     border: solid 6px burlywood;
@@ -414,7 +414,8 @@ body {
 
 .music {
   margin-top: -50px;
-  margin-bottom: 55px; }
+  margin-bottom: 55px;
+position: relative;}
 
 .hide {
   display: none; }
@@ -526,3 +527,29 @@ body {
   position: relative;
   top: 0px;
   left: 235px; }
+
+
+.music-note {
+  position: absolute;
+  top:55px;
+  height: 100px;
+  margin-left: 60px;
+  width: 1280px;
+  background-image: url('images/music-note.png') ;
+  animation:mymove 10s infinite;
+  -webkit-animation:mymove 10s infinite; /*Safari and Chrome*/
+  animation-timing-function:linear;
+}
+
+@keyframes mymove
+{
+  from {background-position-x:0px;}
+  to {background-position-x:-970px;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  from {background-position-x:0px;}
+  to {background-position-x:-970px;}
+}
+
