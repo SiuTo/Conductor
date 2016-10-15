@@ -27,29 +27,35 @@
 
     <div class="row">
         <div class="icon">
-            <div id="guitar-music1" class="hide m-icon animated fadeInUp infinite" >
-                <img src="assets/images/m-icon1.png">
-            </div>
-            <div id="guitar-music2" class="hide m-icon2 animated fadeInUp infinite" >
-                <img src="assets/images/m-icon2.png">
+            <div id="guitar-music" class="hide">
+                <div class="m-icon animated fadeInUp infinite" >
+                     <img src="assets/images/m-icon1.png">
+                </div>
+                <div class="m-icon2 animated fadeInUp infinite" >
+                    <img src="assets/images/m-icon2.png">
+                </div>
             </div>
             <img id="guitar" class="infra" src="assets/images/guitar.png">
         </div>
         <div class="icon">
-            <div id="drum-music1" class="hide d-icon animated fadeInUp infinite" >
-                <img src="assets/images/d-icon1.png">
-            </div>
-            <div id="drum-music2" class="hide d-icon2 animated fadeInUp infinite" >
-                <img src="assets/images/d-icon2.png">
+            <div id="drum-music" class="hide">
+                <div  class="d-icon animated fadeInUp infinite" >
+                    <img src="assets/images/d-icon1.png">
+                </div>
+                <div class="d-icon2 animated fadeInUp infinite" >
+                    <img src="assets/images/d-icon2.png">
+                </div>
             </div>
             <img id="drum" class="infra" src="assets/images/drum.png">
         </div>
         <div class="icon">
-            <div id="piano-music1" class="hide p-icon animated fadeInUp infinite" >
-                <img src="assets/images/p-icon1.png">
-            </div>
-            <div id="piano-music2" class="hide p-icon2 animated fadeInUp infinite" >
-                <img src="assets/images/p-icon2.png">
+            <div id="piano-music" class="hide">
+                <div class="p-icon animated fadeInUp infinite" >
+                    <img src="assets/images/p-icon1.png">
+                </div>
+                <div class="p-icon2 animated fadeInUp infinite" >
+                    <img src="assets/images/p-icon2.png">
+                </div>
             </div>
             <img id="piano" class="infra" src="assets/images/piano.png">
         </div>
@@ -88,11 +94,13 @@ piano.volume(0.8,pianoId);
 drum.volume(0,drumId);
 guitar.volume(0,guitarId);
 
+var isPlayingPiano = true;
 var isPlayingDrum = false;
 var isPlayingGuitar = false;
 
 var current = "P";
 $("#piano").addClass("highlight");
+$("#piano-music").removeClass("hide");
 
 var prev={"P":"G","D":"P","G":"D"};
 var next={"P":"D","D":"G","G":"P"};
@@ -108,27 +116,43 @@ function updateAudio(gesture){
     current = next[current];
     $(map[current]).addClass("highlight");
   }else if(gesture == 3){
-    if(current == "D" && !isPlayingDrum){
+    if(current == "P" && !isPlayingPiano){
+       piano.seek(0);
+      //drum.volume(1,drumId);
+       piano.fade(0, 1, 2000, pianoId);
+       isPlayingPiano = true;
+       $("#piano-music").removeClass("hide");
+    }else if(current == "D" && !isPlayingDrum){
        drum.seek(0);
       //drum.volume(1,drumId);
-       drum.fade(0, 1, 5000, drumId);
+       drum.fade(0, 1, 2000, drumId);
        isPlayingDrum = true;
+       $("#drum-music").removeClass("hide");
     }else if(current == "G" && !isPlayingGuitar){
         guitar.seek(0);
         //guitar.volume(1,guitarId);
-        guitar.fade(0, 1, 5000, guitarId);
+        guitar.fade(0, 1, 2000, guitarId);
         isPlayingGuitar = true;
+         $("#guitar-music").removeClass("hide");
     }
   }else if(gesture == 4){
-      if(current == "D" && isPlayingDrum){
-        drum.fade(1, 0, 5000, drumId);
+      if(current == "P" && isPlayingPiano){
+         piano.fade(1, 0, 2000, pianoId);
+         isPlayingPiano = false;
+         $("#piano-music").addClass("hide");
+      }else if(current == "D" && isPlayingDrum){
+        drum.fade(1, 0, 2000, drumId);
         isPlayingDrum = false;
+        $("#drum-music").addClass("hide");
       }else if(current == "G" && isPlayingGuitar){
-          guitar.fade(1, 0, 5000, guitarId);
+          guitar.fade(1, 0, 2000, guitarId);
           isPlayingGuitar = false;
+          $("#guitar-music").addClass("hide");
       }
   }else if(gesture == 5){
-
+      piano.rate(1.2,pianoId);
+      drum.rate(1.2,drumId);
+      guitar.rate(1.2,guitarId);
   }
 }
 
