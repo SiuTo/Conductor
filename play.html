@@ -163,27 +163,21 @@ function updateAudio(gesture){
 Myo.connect('com.myojs.poseDetector');
 //Myo.setLockingPolicy("none");
 Myo.on('pose', function(pose){
-  $('img.' + pose).attr('src', 'img/' + pose + '_active.png');
-  $('.mainPose img').attr('src', 'img/' + pose + '_active.png');
  console.log(pose);
   var gesture;
 if (pose == "wave_out")
 {
   gesture = 1;
-}
-if (pose == "wave_in")
+}else if (pose == "wave_in")
 {
   gesture = 2;
-}
-if (pose == "fingers_spread")
+}else if (pose == "fingers_spread")
 {
   gesture = 5;
-}
-if (pose == "double_tap")
+}else if (pose == "double_tap")
 {
   gesture = 3;
-}
-if (pose == "fist")
+}else if (pose == "fist")
 {
   gesture = 4;
 }
@@ -191,6 +185,118 @@ updateAudio(gesture);
   //if (pose == fist)
 })
 
+function updateAudio(gesture){
+  if(gesture == 1){
+    $(map[current]).removeClass("highlight");
+    current = prev[current];
+    $(map[current]).addClass("highlight");
+  }else if(gesture == 2){
+    $(map[current]).removeClass("highlight");
+    current = next[current];
+    $(map[current]).addClass("highlight");
+  }else if(gesture == 3){
+    if(current == "P" && !isPlayingPiano){
+       piano.seek(0);
+       volumePiano = 1;
+       piano.fade(0, 1, 2000, pianoId);
+       isPlayingPiano = true;
+       $("#piano-music").removeClass("hide");
+    }else if(current == "D" && !isPlayingDrum){
+       drum.seek(0);
+       volumeDrum = 1;
+       drum.fade(0, 1, 2000, drumId);
+       isPlayingDrum = true;
+       $("#drum-music").removeClass("hide");
+    }else if(current == "G" && !isPlayingGuitar){
+        guitar.seek(0);
+        volumeGuitar = 1;
+        guitar.fade(0, 1, 2000, guitarId);
+        isPlayingGuitar = true;
+         $("#guitar-music").removeClass("hide");
+    }
+  }else if(gesture == 4){
+      if(current == "P" && isPlayingPiano){
+         piano.fade(volumePiano, 0, 2000, pianoId);
+         isPlayingPiano = false;
+         $("#piano-music").addClass("hide");
+      }else if(current == "D" && isPlayingDrum){
+        drum.fade(volumeDrum, 0, 2000, drumId);
+        isPlayingDrum = false;
+        $("#drum-music").addClass("hide");
+      }else if(current == "G" && isPlayingGuitar){
+          guitar.fade(volumeGuitar, 0, 2000, guitarId);
+          isPlayingGuitar = false;
+          $("#guitar-music").addClass("hide");
+      }
+  }else if(gesture == 5){
+      piano.rate(1.2,pianoId);
+      drum.rate(1.2,drumId);
+      guitar.rate(1.2,guitarId);
+  }
+}
+
+//drum.fade(1, 0, 1000, drumId);
+//guitar.rate(1.5, guitarId);
+Myo.connect('com.myojs.poseDetector');
+//Myo.setLockingPolicy("none");
+Myo.on('pose', function(pose){
+ console.log(pose);
+  var gesture;
+if (pose == "wave_out")
+{
+  gesture = 1;
+}else if (pose == "wave_in")
+{
+  gesture = 2;
+}else if (pose == "fingers_spread")
+{
+  gesture = 5;
+}else if (pose == "double_tap")
+{
+  gesture = 3;
+}else if (pose == "fist")
+{
+  gesture = 4;
+}
+updateAudio(gesture);
+  //if (pose == fist)
+})
+
+window.onkeypress = function(e){
+    var UP = 119;
+    var DOWN = 115;
+
+    var getKey = function(e) {
+    if(window.event) { return e.keyCode; }  // IE
+    else if(e.which) { return e.which; }    // Netscape/Firefox/Opera
+    };
+
+    
+    var keynum = getKey(e);
+    var updateVolume = undefined;
+    if(keynum === UP) {
+      updateVolume = function(vol) {
+        if(vol+0.1 > 1) return 1;
+        else return vol+0.1}
+    }
+
+    if(keynum === DOWN) {
+      updateVolume = function(vol) {
+        if(vol-0.1 < 0) return 0;
+        else return vol-0.1}
+    }
+
+    if(current == "P" && isPlayingPiano){
+        volumePiano = updateVolume(volumePiano);
+        piano.volume(volumePiano,pianoId);
+    }else if(current == "D" && isPlayingDrum){
+        volumeDrum = updateVolume(volumeDrum);
+        drum.volume(volumeDrum,drumId);
+    }else if(current == "G" && isPlayingGuitar){
+        volumeGuitar = updateVolume(volumeGuitar);
+        guitar.volume(volumeGuitar,guitarId);
+    }
+}
 </script>
 </body>
 </html>
